@@ -37,17 +37,44 @@ export const StickyNotes = () => {
         setCreateNote(initialNote);
     };
   
-  const deleteNoteHandler = (noteId: number) => {
-    const noteToDelete = notes.find(note => note.id === noteId);
+    const deleteNoteHandler = (noteId: number) => {
+        const noteToDelete = notes.find(note => note.id === noteId);
+        
+        const updatedNotes = notes.filter(note => note.id !== noteId); 
+        setNotes(updatedNotes); 
     
-    const updatedNotes = notes.filter(note => note.id !== noteId); 
-    setNotes(updatedNotes); 
-  
-    if (noteToDelete) {
-      const updatedFavorites = favorites.filter(title => title !== noteToDelete.title);
-      setFavorites(updatedFavorites); 
-    }
-  };
+        if (noteToDelete) {
+        const updatedFavorites = favorites.filter(title => title !== noteToDelete.title);
+        setFavorites(updatedFavorites); 
+        }
+    };
+
+    const handleEditNote = (noteID, updatedTitle, updatedContent) => {
+        const oldNote = notes.find(note => note.id === noteID);
+        
+        if (!oldNote) {
+            console.error('Old note not found for ID:', noteID);
+            return; 
+        }
+    
+        const isTitleChanged = oldNote.title !== updatedTitle;
+    
+        if (isTitleChanged) {
+            setFavorites(prevFavorites => prevFavorites.filter(fav => fav !== oldNote.title));
+    
+            if (!favorites.includes(updatedTitle)) {
+                setFavorites(prevFavorites => [...prevFavorites, updatedTitle]);
+            }
+        }
+    
+        const updatedNotes = notes.map(note => 
+            note.id === noteID ? { ...note, title: updatedTitle, content: updatedContent } : note
+        );
+        setNotes(updatedNotes);
+    };
+    
+
+
   
   
     const [selectedNote, setSelectedNote] = useState<Note>(initialNote);
@@ -79,6 +106,7 @@ export const StickyNotes = () => {
     
           
             <textarea
+                placeholder="Note Content"
               onChange={(event) =>
                 setCreateNote({ ...createNote, content: event.target.value })}
               required>
@@ -103,7 +131,7 @@ export const StickyNotes = () => {
         </div>
         <div className="notes-grid">
         {notes.map((note) => (
-    <div key={note.id} className="note-item">
+    <div key={note.id} className="note-item" >
       <div className="notes-header">
         <button className={'notebutton'} onClick={() => toggleFavorite(note.title)} >
           {favorites.includes(note.title) ? '❤️' : '🤍'}
@@ -153,6 +181,8 @@ export const StickyNotes = () => {
               const updatedNotes = notes.map((n) => 
                 n.id === selectedNote.id ? selectedNote : n
               );
+              handleEditNote(note.id, selectedNote.title, selectedNote.content);
+
               setNotes(updatedNotes);
               setSelectedNote(initialNote); // Reset selectedNote after saving
             }}

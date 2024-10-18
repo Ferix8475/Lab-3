@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
     "@types/node": "^16.18.113",
     "@types/react": "^18.3.11",
     "@types/react-dom": "^18.3.1",
@@ -21,7 +20,6 @@
     "build": "react-scripts build",
     "test": "react-scripts test --watchAll --testMatch **/src/**/*.test.tsx",
     "eject": "react-scripts eject"
-    
   },
   "eslintConfig": {
     "extends": [
@@ -43,8 +41,10 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "@testing-library/jest-dom": "^6.5.0",
+    "@testing-library/jest-dom": "^6.6.2",
     "@testing-library/react": "^16.0.1",
+    "@types/jest": "^29.5.13",
+    "@types/mocha": "^10.0.9",
     "jest": "^27.5.1"
   }
 }

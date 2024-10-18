@@ -3,6 +3,14 @@ import { Label } from "./types";
 export const dummyGroceryList = [
     { name: "Apples", isPurchased: false },
     { name: "Bananas", isPurchased: false },
+    { name: "John", isPurchased: false },
+    { name: "Cena", isPurchased: false },
+    { name: "Is", isPurchased: false },
+    { name: "Retiring", isPurchased: false },
+    { name: "Cse", isPurchased: false },
+    { name: "1234", isPurchased: false },
+    { name: "10", isPurchased: false },
+    { name: "DummYItems", isPurchased: false },
  ]
  
 

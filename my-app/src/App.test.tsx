@@ -1,9 +1,18 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { render, screen } from "@testing-library/react";
+import App from "./App";
+import { BrowserRouter } from "react-router-dom";
+import React from "react";
+import { ThemeProvider } from "./ThemeContext";
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+test("renders Create Note", () => {
+ render(
+   <BrowserRouter>
+    
+    <ThemeProvider>
+    <App />
+    </ThemeProvider>
+   </BrowserRouter>
+ );
+ const createNoteElement = screen.getByText(/Create Note/i);
+ expect(createNoteElement).toBeInTheDocument();
 });
